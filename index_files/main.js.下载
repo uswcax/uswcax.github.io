@@ -1,0 +1,57 @@
+// Navbar background udpates
+$(document).ready(function() {
+    var navbar = $("#navbar");
+    var anchor = $("#navbar-anchor");
+
+    if (navbar.length <= 0 || anchor.length <= 0)
+        return;
+
+    var threshold = anchor.offset().top - 100;
+    var solid = false;
+    var update = function() {
+        if (!solid && $(window).scrollTop() > threshold) {
+            navbar.addClass("navbar-solid");
+            solid = true;
+        } else if (solid && $(window).scrollTop() <= threshold) {
+            navbar.removeClass("navbar-solid");
+            solid = false;
+        }
+    };
+
+    $(window).scroll(update);
+    update();
+});
+
+// Product detail icon animation
+$(document).ready(function() {
+    $(".product-body").on("hide.bs.collapse", function() {
+        this.parentNode.querySelector(".product-head").classList.remove("product-expanded");
+    });
+    $(".product-body").on("show.bs.collapse", function() {
+        this.parentNode.querySelector(".product-head").classList.add("product-expanded");
+    });
+});
+
+// Smooth scrolling
+$(document).ready(function() {
+    $("a").on("click", function(event) {
+        if (this.hash === "" || $(this.hash).length <= 0)
+            return;
+        event.preventDefault();
+        var hash = this.hash;
+        $("html, body").animate({
+            scrollTop: $(hash).offset().top
+        }, 350, function() {
+            window.location.hash = hash;
+        });
+    });
+});
+
+// Contact us
+$(document).ready(function() {
+    setTimeout(function() {
+        var btn = $(".magi-enterprise a.btn");
+        if (btn.length > 1)
+            btn[1].setAttribute("href", ["mai", "lto:", "business", "@", "staff.peak-labs.com"].join(""));
+    }, 2000);
+});
